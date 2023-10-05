@@ -1,0 +1,53 @@
+@font-face {
+    font-family: OpenSansBold;
+    src: url("../fonts/OpenSans-SemiBold.ttf");
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+  body{
+    font-family: OpenSansBold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    color: rgb(223, 215, 215);
+  }
+
+  .Start-Menu{
+    background-color: rgb(43, 38, 38);
+    padding: 10px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    
+
+  }
+
+  .Start-Menu-Tittle-Wrapper{
+    grid-column: span 2;
+  }
+  .grid-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+ .x-icon-btn, .o-icon-btn{
+    border: 2px solid black;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+ }  
+.x-icon-btn{
+}
+.o-icon-btn{
+
+}
