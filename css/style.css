@@ -17,7 +17,17 @@
     height: 100vh;
     background-color: black;
     color: rgb(223, 215, 215);
+    
   }
+
+
+/* ---
+   ---
+   START
+   MENU
+   ---
+   ---
+*/
 
   .Start-Menu{
     background-color: rgb(43, 38, 38);
@@ -45,9 +55,68 @@
     padding: 5px;
     cursor: pointer;
     border-radius: 50%;
+    transition: .1s linear background-color;
  }  
-.x-icon-btn{
-}
-.o-icon-btn{
+.x-icon-btn:hover, .o-icon-btn:hover{
 
+  background-color: rgb(82, 75, 75);
+}
+
+/* ---
+   ---
+   START
+   MENU
+   END
+   ---
+   ---
+*/
+
+
+
+
+
+/* ---
+   ---
+   GAME
+   MENU
+   ---
+   ---
+*/
+
+.Game-Menu{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
+.game-field{
+  background-color: red;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.o-icon{
+  font-size: 53px;
+}
+.x-icon{
+  font-size: 64px;
+}
+
+/* ---
+   ---
+   GAME
+   MENU
+   END
+   ---
+   ---
+*/
+
+.not-visible{
+  visibility: hidden;
+  height: 0;
 }

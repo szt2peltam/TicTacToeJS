@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/development.js"></script>
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
@@ -15,15 +14,29 @@
                 <h2 class="Start-Menu-Tittle">Choose a side</h2>
             </div>
             <div class="grid-item">
-                <ion-icon name="close-outline" size="large" class="x-icon-btn"></ion-icon>
+                <ion-icon name="close-outline" size="large" class="x-icon-btn" data-btnvalue="X_ICON"></ion-icon>
             </div>
             <div class="grid-item">
-                <ion-icon name="ellipse-outline" size="large" class="o-icon-btn"></ion-icon>
+                <ion-icon name="ellipse-outline" size="large" class="o-icon-btn" data-btnvalue="O_ICON"></ion-icon>
             </div>
 
         </section>
-    </main>
 
+        <section class="Game-Menu not-visible">
+            <div class="game-field"></div>
+            <div class="game-field"></div>
+            <div class="game-field"></div>
+            <div class="game-field"></div>
+            <div class="game-field"></div>
+            <div class="game-field"></div>
+            <div class="game-field"></div>
+            <div class="game-field"></div>
+            <div class="game-field"></div>
+        </section>
+    </main>
+    
+    <script src="./js/tictactoe.js"></script>
+    <script src="./js/development.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
