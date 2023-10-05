@@ -1,6 +1,6 @@
 
 
-let isDevelopment = true; // Set to true to skip start screen
+let isDevelopment = false; // Set to true to skip start screen
 
 let Startmenu = document.querySelector(".Start-Menu");
 
