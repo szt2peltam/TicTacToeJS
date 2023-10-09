@@ -77,27 +77,19 @@ function init() {
     });
     
 }
-function AddPlayerIconToElement(element){
-    element.insertAdjacentHTML
-}
+
 
 //GAME STATE END
 
-EmptyIndexes.forEach(element =>{
-    console.log(element);
-})
-
 //EASY AI
-
 function PlayerHasClicked(){
     
-
+    
 
     if(IsThereEmpty()){
             let RandomIndex = getRandomInt(8);
             do{
                 RandomIndex = getRandomInt(8);
-                console.log(RandomIndex);
             }
             while(EmptyIndexes[RandomIndex] != 0)
             EmptyIndexes[RandomIndex] += 1;
@@ -134,3 +126,8 @@ function IsThereEmpty(){
 
     return true;
 }
+//EASY AI END
+
+// WIN
+
+
