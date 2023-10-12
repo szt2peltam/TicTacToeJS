@@ -9,7 +9,7 @@
 </head>
 <body>
     <main>
-        <section class="Start-Menu">
+        <section class="Start-Menu visible">
             <div class="Start-Menu-Tittle-Wrapper grid-item">
                 <h2 class="Start-Menu-Tittle">Choose a side</h2>
             </div>
@@ -32,6 +32,18 @@
             <div class="game-field" data-index="6"></div>
             <div class="game-field" data-index="7"></div>
             <div class="game-field" data-index="8"></div>
+        </section>
+
+        <section class="End-Menu not-visible">
+            <div class="End-Menu-Tittle-Wrapper">
+                <h2 class="End-Menu-Tittle">END MENU</h2>
+            </div>
+            <div class="Winner-Information">
+                <div>Winner: <span  class="Winner">Player</span></div>
+            </div>
+            <div class="Restart-Button-Wrapper">
+                    <div class="Restart-Button" onclick="ShowStartMenu()">RESTART</div>
+            </div>
         </section>
     </main>
     
