@@ -52,7 +52,7 @@ EmptyIndexes['5'] = 0;
 EmptyIndexes['6'] = 0;
 EmptyIndexes['7'] = 0;
 EmptyIndexes['8'] = 0;
-
+let stepcount = 0;
 function IndexMapInit(){
     EmptyIndexes['0'] = 0;
     EmptyIndexes['1'] = 0;
@@ -65,7 +65,7 @@ function IndexMapInit(){
     EmptyIndexes['8'] = 0;
 
 }
-
+let elementIndex;
 function init() {
     IndexMapInit();
     ClearGameMap();
@@ -73,13 +73,14 @@ function init() {
         element.childNodes = new Array();
 
         element.addEventListener("click", function clicked(element){
-            let elementIndex = element.target.dataset.index;
+            elementIndex = element.target.dataset.index;
 
 
             if(EmptyIndexes[elementIndex] == 0){
                 element.target.insertAdjacentHTML("beforeend", playerIcon);
                 EmptyIndexes[elementIndex] += 1;
-                PlayerHasClicked("easyAI");
+                stepcount++;
+                PlayerHasClicked("hardAI");
             } 
             checkWinner();
             element.target.removeEventListener("click", clicked);
@@ -97,7 +98,6 @@ function ClearGameMap() {
 
 //GAME STATE END
 
-//EASY AI
 function PlayerHasClicked(aimode){
     
     if(aimode == "easyAI"){
@@ -118,7 +118,16 @@ function PlayerHasClicked(aimode){
         }
 
     }
+    else if(aimode == "hardAI"){
 
+        if(EmptyIndexes[4] == 1 && stepcount == 1){
+            PlaceInRandomCorner()
+        }
+        else{
+            PlaceInOpposite(elementIndex)
+        }
+
+    }
 
 
 
@@ -126,6 +135,62 @@ function PlayerHasClicked(aimode){
 }
 
 
+
+function PlaceInRandomCorner() {
+    let corners = [0,2,6,8]
+
+    let rndIndex = getRandomInt(3);
+    EmptyIndexes[rndIndex] += 2;
+    Fields.forEach(element => {
+        if(element.dataset.index == corners[rndIndex]) {
+            element.insertAdjacentHTML("beforeend", AIIcon)
+        }
+    });
+
+}
+
+function PlaceInOpposite(RandomIndexx){
+    if(IsThereEmpty()){
+        if(RandomIndexx == 0){
+            PlaceAtIndex(8)
+        }
+        else if(RandomIndexx == 1){
+            PlaceAtIndex(7)
+        }
+        else if(RandomIndexx == 2){
+            PlaceAtIndex(6)
+        }
+        else if(RandomIndexx == 3){
+            PlaceAtIndex(5)
+        }
+        else if(RandomIndexx == 5){
+            PlaceAtIndex(3)
+        }
+        else if(RandomIndexx == 6){
+            PlaceAtIndex(2)
+        }
+        else if(RandomIndexx == 7){
+            PlaceAtIndex(1)
+        }
+        else if(RandomIndexx == 8){
+            PlaceAtIndex(0)
+        }
+
+    }
+}
+
+function PlaceAtIndex(index){
+    if(EmptyIndexes[index] == 0){
+
+        EmptyIndexes[index] += 2
+        Fields.forEach(element => {
+            if(element.dataset.index == index) {
+                element.insertAdjacentHTML("beforeend", AIIcon)
+            }
+        });
+    }
+
+}
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
