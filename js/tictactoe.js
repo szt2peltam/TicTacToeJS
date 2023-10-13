@@ -16,6 +16,7 @@ let AIIcon = O_ICON;
 function ChoosePlayerIcon(ButtonValue){
     ButtonValue == "X_ICON" ? playerIcon = X_ICON : playerIcon = O_ICON;
     ButtonValue == "X_ICON" ? AIIcon = O_ICON : AIIcon = X_ICON;
+    ButtonValue == "O_ICON" ? Aimode = "hardAI" : Aimode = "easyAI";
     HideStartMenu();
     ShowGameMenu();
 }
@@ -66,24 +67,33 @@ function IndexMapInit(){
 
 }
 let elementIndex;
+let Aimode = "hardAI"
 function init() {
     IndexMapInit();
     ClearGameMap();
+    stepcount = 0;
+    if(Aimode == "hardAI" ){
+        EmptyIndexes[4] = 2;
+        PlaceAtIndex(4);
+    }
     Fields.forEach(element => {
+        
         element.childNodes = new Array();
-
+    
         element.addEventListener("click", function clicked(element){
             elementIndex = element.target.dataset.index;
-
-
             if(EmptyIndexes[elementIndex] == 0){
-                element.target.insertAdjacentHTML("beforeend", playerIcon);
-                EmptyIndexes[elementIndex] += 1;
-                stepcount++;
-                PlayerHasClicked();
-            } 
-            checkWinner();
-            element.target.removeEventListener("click", clicked);
+
+                if(EmptyIndexes[elementIndex] == 0){
+                    element.target.insertAdjacentHTML("beforeend", playerIcon);
+                    EmptyIndexes[elementIndex] += 1;
+                    stepcount++;
+                    PlayerHasClicked(Aimode,stepcount,elementIndex);
+                } 
+                checkWinner();
+                element.target.removeEventListener("click", clicked);
+                
+            }
         });
     });
     
@@ -98,8 +108,8 @@ function ClearGameMap() {
 
 //GAME STATE END
 
-function PlayerHasClicked(aimode){
-    
+function PlayerHasClicked(aimode,stepcount,lastPlacementIndex){
+    if(aimode == "easyAI"){
 
         if(IsThereEmpty()){
                 let RandomIndex;
@@ -116,6 +126,13 @@ function PlayerHasClicked(aimode){
     
         }
 
+
+    }else{
+
+        HardAI(lastPlacementIndex, stepcount)
+    }
+
+
     
 
 
@@ -123,6 +140,206 @@ function PlayerHasClicked(aimode){
 }
 
 
+function PlacedInCorner(lastPlacementIndex){
+    if(lastPlacementIndex == 0 || lastPlacementIndex == 2 || 
+        lastPlacementIndex == 6 ||lastPlacementIndex == 8
+        ) return true;
+
+    return false;
+}
+
+
+function PlacedInSide(lastPlacementIndex){
+    if(lastPlacementIndex ==  1 ||lastPlacementIndex == 3 ||lastPlacementIndex == 5 || lastPlacementIndex == 7) return true;
+    return false;
+}
+
+let startType = "";
+function HardAI(lastPlacementIndex,stepcount){
+
+    if(stepcount == 1){
+        if(lastPlacementIndex == 1){
+            startType = "side1";
+            PlaceAtIndex(0);
+        }
+        if(lastPlacementIndex == 3){
+            startType = "side2";
+            PlaceAtIndex(6);
+        }
+        if(lastPlacementIndex == 5){
+            startType = "side3";
+            PlaceAtIndex(8);
+        }
+        if(lastPlacementIndex == 7){
+            startType = "side4";
+            PlaceAtIndex(6);
+        }
+        if(lastPlacementIndex == 0){
+            startType = "corner1";
+            PlaceAtIndex(2);
+        }
+        if(lastPlacementIndex == 2){
+            startType = "corner2";
+            PlaceAtIndex(0);
+        }
+        if(lastPlacementIndex == 6){
+            startType = "corner3";
+            PlaceAtIndex(0);
+        }
+        if(lastPlacementIndex == 8){
+            startType = "corner4";
+            PlaceAtIndex(2);
+        }
+    }
+
+    else if(stepcount == 2){
+        if(startType == "side1"){
+            if(EmptyIndexes[8] == 0) PlaceAtIndex(8);
+            else{
+                PlaceAtIndex(6)
+            }
+        }
+        if(startType == "side2"){
+            if(EmptyIndexes[2] == 0) PlaceAtIndex(2);
+            else{
+                PlaceAtIndex(8)
+            }
+        }
+        if(startType == "side3"){
+            if(EmptyIndexes[0] == 0) PlaceAtIndex(0);
+            else{
+                PlaceAtIndex(6)
+            }
+        }
+        if(startType == "side4"){
+            if(EmptyIndexes[2] == 0) PlaceAtIndex(2);
+            else{
+                PlaceAtIndex(0)
+            }
+        }
+        if(startType == "corner1"){
+            if(EmptyIndexes[6] == 0) PlaceAtIndex(6);
+            else{
+                PlaceAtIndex(3)
+            }
+        }
+        if(startType == "corner2"){
+            if(EmptyIndexes[8] == 0) PlaceAtIndex(8);
+            else{
+                PlaceAtIndex(5)
+            }
+        }
+        if(startType == "corner3"){
+            if(EmptyIndexes[8] == 0) PlaceAtIndex(8);
+            else{
+                PlaceAtIndex(7)
+            }
+        }
+        if(startType == "corner4"){
+            if(EmptyIndexes[6] == 0) PlaceAtIndex(6);
+            else{
+                PlaceAtIndex(7)
+            }
+        }
+    }
+    else if(stepcount == 3){
+        if(startType == "side1"){
+            if(EmptyIndexes[2] == 0) PlaceAtIndex(2);
+            if(EmptyIndexes[3] == 0) PlaceAtIndex(3);
+        }
+        if(startType == "side2"){
+            if(EmptyIndexes[7] == 0) PlaceAtIndex(7);
+            if(EmptyIndexes[0] == 0) PlaceAtIndex(0);
+        }
+        if(startType == "side3"){
+            if(EmptyIndexes[2] == 0) PlaceAtIndex(2);
+            if(EmptyIndexes[7] == 0) PlaceAtIndex(7);
+        }
+        if(startType == "side4"){
+            if(EmptyIndexes[3] == 0) PlaceAtIndex(3);
+            if(EmptyIndexes[8] == 0) PlaceAtIndex(8);
+        }
+        if(startType == "corner1"){
+            if(EmptyIndexes[5] == 0) PlaceAtIndex(5);
+            else{
+                PlaceRandom()
+            }
+        }
+        if(startType == "corner2"){
+            if(EmptyIndexes[3] == 0) PlaceAtIndex(3);
+            else{
+                PlaceRandom()
+            }
+        }
+        if(startType == "corner3"){
+            if(EmptyIndexes[1] == 0) PlaceAtIndex(1);
+            else{
+                PlaceRandom()
+            }
+        }
+        if(startType == "corner4"){
+            if(EmptyIndexes[1] == 0) PlaceAtIndex(1);
+            else{
+                PlaceRandom()
+            }
+        }
+
+    }else{
+        PlaceRandom()
+    }
+
+
+}
+
+
+function PlaceAtIndex(index){
+    EmptyIndexes[index] = 2;
+    Fields.forEach(element => {
+        if(element.dataset.index == index) {
+            element.insertAdjacentHTML("beforeend", AIIcon)
+        }
+    });
+
+}
+
+
+function PlaceInOpposite(lastPlacementIndex){
+    if(IsThereEmpty()){
+            if(lastPlacementIndex == 1) PlaceAtIndex(7);
+            if(lastPlacementIndex == 2) PlaceAtIndex(6);
+            if(lastPlacementIndex == 3) PlaceAtIndex(5);
+            if(lastPlacementIndex == 5) PlaceAtIndex(3);
+            if(lastPlacementIndex == 6){
+                if(EmptyIndexes[2] == 0)PlaceAtIndex(2);
+                else{
+                    PlaceRandom()
+                }
+            } 
+            if(lastPlacementIndex == 7) PlaceAtIndex(1);
+            if(lastPlacementIndex == 8){
+                if(EmptyIndexes[2] == 0)PlaceAtIndex(2);
+                else{
+                    PlaceRandom()
+                }
+            } 
+
+    }
+}
+
+
+function PlaceRandom(){
+    let RandomIndex;
+                do{
+                    RandomIndex = getRandomInt(9);
+                }
+                while(EmptyIndexes[RandomIndex] != 0)
+                EmptyIndexes[RandomIndex] += 2;
+                Fields.forEach(element => {
+                    if(element.dataset.index == RandomIndex) {
+                        element.insertAdjacentHTML("beforeend", AIIcon)
+                    }
+                });
+}
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -150,9 +367,13 @@ function checkWinner(){
     if(checkIfPlayerWon()){
         ShowEndMenu("Player")
     }
-    if(checkIfAIWon()){
+    else if(checkIfAIWon()){
         ShowEndMenu("AI")
-    }
+    }else if(
+        !IsThereEmpty()){
+            ShowEndMenu("DRAW")
+        }
+    
 }
 
 function checkIfPlayerWon(){
