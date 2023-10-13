@@ -80,7 +80,7 @@ function init() {
         
         element.childNodes = new Array();
     
-        element.addEventListener("click", function clicked(element){
+        element.addEventListener("click", async function clicked(element){
             elementIndex = element.target.dataset.index;
             if(EmptyIndexes[elementIndex] == 0){
 
@@ -90,7 +90,7 @@ function init() {
                     stepcount++;
                     PlayerHasClicked(Aimode,stepcount,elementIndex);
                 } 
-                checkWinner();
+                await checkWinner();
                 element.target.removeEventListener("click", clicked);
                 
             }
@@ -363,16 +363,19 @@ function IsThereEmpty(){
 //EASY AI END
 
 // WIN
-function checkWinner(){
-    if(checkIfPlayerWon()){
-        ShowEndMenu("Player")
-    }
-    else if(checkIfAIWon()){
-        ShowEndMenu("AI")
-    }else if(
-        !IsThereEmpty()){
-            ShowEndMenu("DRAW")
+async function checkWinner(){
+    setTimeout(() => {
+        if(checkIfPlayerWon()){
+            ShowEndMenu("Player")
         }
+        else if(checkIfAIWon()){
+            ShowEndMenu("AI")
+        }else if(
+            !IsThereEmpty()){
+                ShowEndMenu("DRAW")
+            }
+    
+    }, 1000);
     
 }
 
