@@ -364,7 +364,7 @@ function IsThereEmpty(){
 
 // WIN
 async function checkWinner(){
-    setTimeout(() => {
+    
         if(checkIfPlayerWon()){
             ShowEndMenu("Player")
         }
@@ -375,7 +375,6 @@ async function checkWinner(){
                 ShowEndMenu("DRAW")
             }
     
-    }, 1000);
     
 }
 
