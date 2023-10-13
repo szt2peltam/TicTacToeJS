@@ -80,7 +80,7 @@ function init() {
         
         element.childNodes = new Array();
     
-        element.addEventListener("click", async function clicked(element){
+        element.addEventListener("click",  function clicked(element){
             elementIndex = element.target.dataset.index;
             if(EmptyIndexes[elementIndex] == 0){
 
@@ -90,7 +90,7 @@ function init() {
                     stepcount++;
                     PlayerHasClicked(Aimode,stepcount,elementIndex);
                 } 
-                await checkWinner();
+                checkWinner();
                 element.target.removeEventListener("click", clicked);
                 
             }
@@ -363,7 +363,7 @@ function IsThereEmpty(){
 //EASY AI END
 
 // WIN
-async function checkWinner(){
+function checkWinner(){
     
         if(checkIfPlayerWon()){
             ShowEndMenu("Player")
